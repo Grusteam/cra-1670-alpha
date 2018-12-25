@@ -1,4 +1,15 @@
-import React, { useState } from 'react';
+import React, { 
+	useState,
+	useEffect,
+	useContext,
+
+	useReducer,
+	useCallback,
+	useMemo,
+	useRef,
+	useImperativeMethods,
+	useLayoutEffect,
+ } from 'react';
 
 const useInput = (init) => {
   const
@@ -15,20 +26,29 @@ const useCounter = (init) => {
   const
   	[value, setValue] = useState(init),
 	increase = e => setValue(value + 1),
-	decrease = e => setValue(value - 1);
+	decrease = e => setValue(value - 1),
+	reset = e => setValue(0);
 
-	return [value, increase, decrease];
+	return [value, increase, decrease, reset];
 };
 
 function App(props) {
-	const [counterCount, increaseCounterHandleClick, decreaseCounterHandleClick] = useCounter(0);
+	const
+		[counterCount, increaseCounter, decreaseCounter, resetCounter] = useCounter(0),
+		useInputResult = useInput('test');
+
+	useEffect(() => {
+		// Update the document title using the browser API
+		document.title = `Your value is ${useInputResult.value}`;
+	}, [counterCount]);
 
     return (
 		<div>
-			<input {...useInput('test')}></input>
+			<input {...useInputResult}></input>
 			<p>{ counterCount }</p>
-			<button type="button" onClick={increaseCounterHandleClick}>+</button>
-			<button type="button" onClick={decreaseCounterHandleClick}>-</button>
+			<button type="button" onClick={increaseCounter}>+</button>
+			<button type="button" onClick={decreaseCounter}>-</button>
+			<button type="button" onClick={resetCounter}>0</button>
 		</div>
     );
 }
