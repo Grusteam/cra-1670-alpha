@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const useCounter = (init) => {
+const useInput = (init) => {
   const
   	[value, setValue] = useState(init),
 	onChange = e => setValue(e.target.value);
@@ -9,11 +9,27 @@ const useCounter = (init) => {
 		value,
 		onChange,
 	};
-}
+};
+
+const useCounter = (init) => {
+  const
+  	[value, setValue] = useState(init),
+	increase = e => setValue(value + 1),
+	decrease = e => setValue(value - 1);
+
+	return [value, increase, decrease];
+};
 
 function App(props) {
+	const [counterCount, increaseCounterHandleClick, decreaseCounterHandleClick] = useCounter(0);
+
     return (
-		<input {...useCounter('test')}></input>
+		<div>
+			<input {...useInput('test')}></input>
+			<p>{ counterCount }</p>
+			<button type="button" onClick={increaseCounterHandleClick}>+</button>
+			<button type="button" onClick={decreaseCounterHandleClick}>-</button>
+		</div>
     );
 }
 
