@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 
 const useCounter = (init) => {
-  const [value, setValue] = useState(init);
-
-  function onChange(e) {
-	  setValue(e.target.value);
-  }
+  const
+  	[value, setValue] = useState(init),
+	onChange = e => setValue(e.target.value);
 
 	return {
 		value,
@@ -14,9 +12,8 @@ const useCounter = (init) => {
 }
 
 function App(props) {
-
     return (
-		<input {...useCounter('хуй')}></input>
+		<input {...useCounter('test')}></input>
     );
 }
 
