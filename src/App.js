@@ -1,18 +1,22 @@
 import React, { useState } from 'react';
 
+const useCounter = (init) => {
+  const [value, setValue] = useState(init);
+
+  function onChange(e) {
+	  setValue(e.target.value);
+  }
+
+	return {
+		value,
+		onChange,
+	};
+}
+
 function App(props) {
-  const [count, setCount] = useState(0);
 
     return (
-      <div>
-		<p>You clicked {count} times</p>
-		<button onClick={() => setCount(count + 1)}>
-			add
-		</button>
-		<button onClick={() => setCount(count + -1)}>
-			substract
-		</button>
-		</div>
+		<input {...useCounter('хуй')}></input>
     );
 }
 
